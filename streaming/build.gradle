@@ -1,0 +1,18 @@
+def kafka_version = "0.9.1.0-cp1"
+
+repositories {
+    flatDir { dirs "../lib" }
+    maven { url "http://packages.confluent.io/maven/" }
+}
+
+dependencies {
+
+    compile project(':ml-model')
+
+    // Kafka dependency
+    compile "org.apache.kafka:kafka-streams:${kafka_version}"
+    compile "org.apache.kafka:kafka-streams-examples:${kafka_version}"
+    testCompile "org.apache.kafka:kafka_2.11:${kafka_version}"
+    testCompile "org.apache.kafka:kafka_2.11:${kafka_version}:test"
+    testCompile "org.apache.curator:curator-test:2.9.0"
+}

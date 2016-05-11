@@ -1,4 +1,4 @@
-package io.confluent.examples.streams.kafka;
+package bnouyrigat.h2o.streams.kafka;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.ZkConnection;

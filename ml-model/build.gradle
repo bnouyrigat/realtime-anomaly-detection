@@ -1,0 +1,29 @@
+apply plugin: 'de.undercouch.download'
+
+def h2o_version = "3.8.2.3"
+
+repositories {
+    flatDir { dirs "../lib" }
+    maven { url "http://h2o-release.s3.amazonaws.com/h2o/rel-turchin/3/maven/repo/" }
+}
+
+dependencies {
+    // H2O Dependencies
+    compile name: "h2o-genmodel"
+//    compile "ai.h2o:h2o-core:${h2o_version}"
+//    compile "ai.h2o:h2o-algos:${h2o_version}"
+}
+
+
+import de.undercouch.gradle.tasks.download.Download
+
+task(downloadModel, type: Download) {
+    src 'http://localhost:54321/3/Models.java/DeepAutoEncoderModel'
+    dest new File(buildDir, 'DeepAutoEncoderModel.java')
+}
+
+task(placeModel, dependsOn: [downloadModel, ':placeH2OGenModelJar']) << {
+    String fileContents = new File(buildDir, "DeepAutoEncoderModel.java").text
+    File outf = new File(rootDir.absolutePath + '/ml-model' + "/src/main/java/bnouyrigat/h2o/mlmodel/DeepAutoEncoderModel.java")
+    outf.write("package bnouyrigat.h2o.mlmodel;\n" + "\n" + fileContents)
+}

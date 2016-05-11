@@ -2,56 +2,28 @@ plugins {
     id "de.undercouch.download" version "3.0.0"
 }
 
-group 'bnouyrigat.h2o'
-version '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+
+    group 'bnouyrigat.h2o'
+    version '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile "junit:junit:4.12"
+        testCompile "org.assertj:assertj-core:3.3.0"
+    }
+}
 
 apply plugin: 'de.undercouch.download'
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-def h2o_version = "3.8.2.3"
-def kafka_version = "0.9.1.0-cp1"
-
-repositories {
-    flatDir { dirs "lib" }
-    mavenCentral()
-    maven { url "http://h2o-release.s3.amazonaws.com/h2o/rel-turchin/3/maven/repo/" }
-    maven { url "http://packages.confluent.io/maven/" }
-}
-
-dependencies {
-
-    // H2O Dependencies
-    compile name: "h2o-genmodel"
-    compile "ai.h2o:h2o-core:${h2o_version}"
-    compile "ai.h2o:h2o-algos:${h2o_version}"
-
-    // Kafka dependency
-    compile "org.apache.kafka:kafka-streams:${kafka_version}"
-    compile "org.apache.kafka:kafka-streams-examples:${kafka_version}"
-    testCompile "org.apache.kafka:kafka_2.11:${kafka_version}"
-    testCompile "org.apache.kafka:kafka_2.11:${kafka_version}:test"
-    testCompile "org.apache.curator:curator-test:2.9.0"
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile "org.assertj:assertj-core:3.3.0"
-}
-
 
 import de.undercouch.gradle.tasks.download.Download
 
 task(placeH2OGenModelJar, type: Download) {
     src 'http://localhost:54321/3/h2o-genmodel.jar'
-    dest new File('lib/h2o-genmodel.jar')
-}
-
-task(downloadModel, type: Download) {
-    src 'http://localhost:54321/3/Models.java/DeepAutoEncoderModel'
-    dest new File(buildDir, 'DeepAutoEncoderModel.java')
-}
-
-task(placeModel, dependsOn: [downloadModel, placeH2OGenModelJar]) << {
-    String fileContents = new File(buildDir, "DeepAutoEncoderModel.java").text
-    File outf = new File("src/main/java/bnouyrigat/h2o/model/DeepAutoEncoderModel.java")
-    outf.write("package bnouyrigat.h2o;\n" + "\n" + fileContents)
+    dest new File(rootDir.absolutePath + 'lib/h2o-genmodel.jar')
 }

@@ -46,7 +46,7 @@ public class DetectionMain {
 
     }
 
-    public static double[] toDoubleArray(String data) {
+    private static double[] toDoubleArray(String data) {
         return Arrays.stream(data.split(","))
                 .mapToDouble(Double::parseDouble)
                 .toArray();

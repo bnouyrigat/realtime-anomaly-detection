@@ -1,6 +1,6 @@
 package bnouyrigat.h2o;
 
-import io.confluent.examples.streams.IntegrationTestUtils;
+import bnouyrigat.h2o.streams.IntegrationTestUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 

@@ -1,6 +1,6 @@
 package bnouyrigat.h2o;
 
-import io.confluent.examples.streams.IntegrationTestUtils;
+import bnouyrigat.h2o.streams.IntegrationTestUtils;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.streams.KeyValue;

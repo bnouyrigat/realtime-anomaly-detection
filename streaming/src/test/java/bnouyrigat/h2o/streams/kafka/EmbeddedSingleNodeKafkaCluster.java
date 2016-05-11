@@ -1,4 +1,4 @@
-package io.confluent.examples.streams.kafka;
+package bnouyrigat.h2o.streams.kafka;
 
 import org.apache.curator.test.InstanceSpec;
 import org.junit.rules.ExternalResource;
@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Properties;
 
-import io.confluent.examples.streams.zookeeper.ZooKeeperEmbedded;
+import bnouyrigat.h2o.streams.zookeeper.ZooKeeperEmbedded;
 import kafka.server.KafkaConfig$;
 
 /**

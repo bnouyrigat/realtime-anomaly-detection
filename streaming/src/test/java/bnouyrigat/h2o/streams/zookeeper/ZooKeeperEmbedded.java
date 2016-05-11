@@ -1,4 +1,4 @@
-package io.confluent.examples.streams.zookeeper;
+package bnouyrigat.h2o.streams.zookeeper;
 
 import org.apache.curator.test.TestingServer;
 import org.slf4j.Logger;

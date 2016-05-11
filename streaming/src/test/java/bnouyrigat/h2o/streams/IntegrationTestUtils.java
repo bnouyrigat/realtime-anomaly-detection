@@ -12,7 +12,7 @@
  * the License.
  */
 
-package io.confluent.examples.streams;
+package bnouyrigat.h2o.streams;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
