@@ -27,3 +27,7 @@ task(placeModel, dependsOn: [downloadModel, ':placeH2OGenModelJar']) << {
     File outf = new File(rootDir.absolutePath + '/ml-model' + "/src/main/java/bnouyrigat/h2o/mlmodel/DeepAutoEncoderModel.java")
     outf.write("package bnouyrigat.h2o.mlmodel;\n" + "\n" + fileContents)
 }
+
+task runRScript(type: Exec) {
+    commandLine "R", "-f", "src/R/autoencoder-anomaly-detection.R"
+}
