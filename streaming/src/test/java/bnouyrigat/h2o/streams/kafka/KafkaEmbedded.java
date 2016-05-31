@@ -1,5 +1,6 @@
 package bnouyrigat.h2o.streams.kafka;
 
+import kafka.admin.RackAwareMode;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.ZkConnection;
 import org.apache.kafka.common.protocol.SecurityProtocol;
@@ -120,7 +121,7 @@ public class KafkaEmbedded {
     log.debug("Removing logs.dir at {} ...", logDir);
     List<String> logDirs = Collections.singletonList(logDir.getAbsolutePath());
     tmpFolder.delete();
-    CoreUtils.rm(scala.collection.JavaConversions.asScalaBuffer(logDirs).seq());
+    CoreUtils.delete(scala.collection.JavaConversions.asScalaBuffer(logDirs).seq());
     log.debug("Shutdown of embedded Kafka broker at {} completed (with ZK ensemble at {}) ...",
         brokerList(), zookeeperConnect());
   }
@@ -170,7 +171,7 @@ public class KafkaEmbedded {
         ZKStringSerializer$.MODULE$);
     boolean isSecure = false;
     ZkUtils zkUtils = new ZkUtils(zkClient, new ZkConnection(zookeeperConnect()), isSecure);
-    AdminUtils.createTopic(zkUtils, topic, partitions, replication, topicConfig);
+    AdminUtils.createTopic(zkUtils, topic, partitions, replication, topicConfig, RackAwareMode.Enforced$.MODULE$);
     zkClient.close();
   }
 

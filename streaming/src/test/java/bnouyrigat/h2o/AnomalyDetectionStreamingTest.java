@@ -80,7 +80,7 @@ public class AnomalyDetectionStreamingTest {
     private static Properties testStreamingConfiguration() {
         Properties streamsConfiguration = new Properties();
         streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "anomaly-detection-integration-test");
-        streamsConfiguration.put(StreamsConfig.JOB_ID_CONFIG, "anomaly-detection-job-1");
+        streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "anomaly-detection-app-1");
         streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, CLUSTER.bootstrapServers());
         streamsConfiguration.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, CLUSTER.zookeeperConnect());
         // Explicitly place the state directory under /tmp so that we can remove it via

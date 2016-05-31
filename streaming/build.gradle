@@ -1,4 +1,4 @@
-def kafka_version = "0.9.1.0-cp1"
+def kafka_version = "0.10.0.0"
 
 repositories {
     flatDir { dirs "../lib" }
