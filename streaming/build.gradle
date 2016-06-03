@@ -12,7 +12,8 @@ dependencies {
     // Kafka dependency
     compile "org.apache.kafka:kafka-streams:${kafka_version}"
     compile "org.apache.kafka:kafka-streams-examples:${kafka_version}"
+    testCompile "org.apache.kafka:kafka-streams:${kafka_version}:test"
     testCompile "org.apache.kafka:kafka_2.11:${kafka_version}"
     testCompile "org.apache.kafka:kafka_2.11:${kafka_version}:test"
-    testCompile "org.apache.curator:curator-test:2.9.0"
+    testCompile "org.apache.kafka:kafka-clients:${kafka_version}:test"
 }

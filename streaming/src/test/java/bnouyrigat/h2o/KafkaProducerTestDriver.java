@@ -1,8 +1,8 @@
 package bnouyrigat.h2o;
 
-import bnouyrigat.h2o.streams.IntegrationTestUtils;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.streams.integration.utils.IntegrationTestUtils;
 
 import java.util.Collection;
 import java.util.Collections;

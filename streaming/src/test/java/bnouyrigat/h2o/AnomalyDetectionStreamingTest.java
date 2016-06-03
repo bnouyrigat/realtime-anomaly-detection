@@ -3,11 +3,11 @@ package bnouyrigat.h2o;
 import bnouyrigat.h2o.processor.ECGData;
 import bnouyrigat.h2o.serializer.ECGDataJsonDeserializer;
 import bnouyrigat.h2o.serializer.ECGDataJsonSerializer;
-import bnouyrigat.h2o.streams.IntegrationTestUtils;
-import bnouyrigat.h2o.streams.kafka.EmbeddedSingleNodeKafkaCluster;
+import org.apache.kafka.streams.integration.utils.IntegrationTestUtils;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.integration.utils.EmbeddedSingleNodeKafkaCluster;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -59,7 +59,7 @@ public class AnomalyDetectionStreamingTest {
         producerTestDriver.produceValue("src-ecg-data", new ECGData(ECGDataTestValues.ANOMALY_DOUBLE_ARRAY));
 
 
-        List<ECGData> actualAnomalyKeyValueList = consumerTestDriver.readValues("anomaly-ecg-data", 1);
+        List<ECGData> actualAnomalyKeyValueList = consumerTestDriver.waitUntilMinValuesRecordsReceived("anomaly-ecg-data", 1);
         assertThat(actualAnomalyKeyValueList).containsExactlyElementsOf(singletonList(new ECGData(ECGDataTestValues.ANOMALY_DOUBLE_ARRAY)));
 
         streamingUnderTest.stop();
@@ -82,7 +82,7 @@ public class AnomalyDetectionStreamingTest {
         streamsConfiguration.put(StreamsConfig.CLIENT_ID_CONFIG, "anomaly-detection-integration-test");
         streamsConfiguration.put(StreamsConfig.APPLICATION_ID_CONFIG, "anomaly-detection-app-1");
         streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, CLUSTER.bootstrapServers());
-        streamsConfiguration.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, CLUSTER.zookeeperConnect());
+        streamsConfiguration.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, CLUSTER.zKConnectString());
         // Explicitly place the state directory under /tmp so that we can remove it via
         // `purgeLocalStreamsState` below.  Once Streams is updated to expose the effective
         // StreamsConfig configuration (so we can retrieve whatever state directory Streams came up
